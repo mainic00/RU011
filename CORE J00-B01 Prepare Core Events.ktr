@@ -6,7 +6,7 @@
     <trans_version>1</trans_version>
     <trans_type>Normal</trans_type>
     <trans_status>1</trans_status>
-    <directory>&#x2f;TZ011</directory>
+    <directory>&#x2f;RU011</directory>
     <parameters>
         <parameter>
             <name>EpisodeStagingTable</name>
@@ -73,7 +73,7 @@
   <created_user/>
   <created_date>2013&#x2f;02&#x2f;10 21&#x3a;45&#x3a;33.987</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2014&#x2f;05&#x2f;31 16&#x3a;40&#x3a;58.234</modified_date>
+  <modified_date>2014&#x2f;11&#x2f;21 10&#x3a;14&#x3a;04.142</modified_date>
   </info>
   <notepads>
   </notepads>
@@ -250,13 +250,13 @@
   </connection>
   <connection>
     <name>Snapshot</name>
-    <server>BD013-DB</server>
+    <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>urban_openhds</database>
+    <database>openhdsMbita20141119</database>
     <port>3306</port>
-    <username>ishare2</username>
-    <password>Encrypted 2be98afc86aa7f28db811af62dbc3fd89</password>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -327,13 +327,13 @@
   </connection>
   <connection>
     <name>Staging</name>
-    <server>BD013-DB</server>
-    <type>MSSQLNATIVE</type>
+    <server>localhost</server>
+    <type>MYSQL</type>
     <access>Native</access>
     <database>ETLStaging</database>
-    <port>1433</port>
-    <username>kherbst</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79b875cc81bac9</password>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -341,11 +341,10 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>MSSQLUseIntegratedSecurity</code><attribute>true</attribute></attribute>
-      <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
@@ -556,7 +555,7 @@
            <schema_name/>
            </partitioning>
     <connection>Snapshot</connection>
-    <sql>SELECT&#xa;  uuid&#xa;, deleted&#xa;, insertDate&#xa;, voidDate&#xa;, voidReason&#xa;, status&#xa;, statusMessage&#xa;, endDate&#xa;, endType&#xa;, startDate&#xa;, startType&#xa;, insertBy_uuid&#xa;, voidBy_uuid&#xa;, collectedBy_uuid&#xa;, individual_uuid&#xa;, location_uuid&#xa;FROM residency&#xa;&#xa;WHERE endDate IS NULL&#xa;</sql>
+    <sql>SELECT&#xa;  uuid&#xa;, deleted&#xa;, insertDate&#xa;, voidDate&#xa;, voidReason&#xa;, status&#xa;, statusMessage&#xa;, endDate&#xa;, endType&#xa;, startDate&#xa;, startType&#xa;, insertBy_uuid&#xa;, voidBy_uuid&#xa;, collectedBy_uuid&#xa;, individual_uuid&#xa;, location_uuid&#xa;FROM residency&#xa;&#xa;WHERE endDate IS NULL and deleted&#x3d;0&#xa;&#xd;&#xa;order by startDate asc</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -582,7 +581,7 @@
            <schema_name/>
            </partitioning>
     <connection>Snapshot</connection>
-    <sql>SELECT&#xa;  uuid&#xa;, deleted&#xa;, insertDate&#xa;, voidDate&#xa;, voidReason&#xa;, status&#xa;, statusMessage&#xa;, endDate&#xa;, endType&#xa;, startDate&#xa;, startType&#xa;, insertBy_uuid&#xa;, voidBy_uuid&#xa;, collectedBy_uuid&#xa;, individual_uuid&#xa;, location_uuid&#xa;FROM residency&#xd;&#xa;where deleted&#x3d;0</sql>
+    <sql>SELECT&#xa;  uuid&#xa;, deleted&#xa;, insertDate&#xa;, voidDate&#xa;, voidReason&#xa;, status&#xa;, statusMessage&#xa;, endDate&#xa;, endType&#xa;, startDate&#xa;, startType&#xa;, insertBy_uuid&#xa;, voidBy_uuid&#xa;, collectedBy_uuid&#xa;, individual_uuid&#xa;, location_uuid&#xa;FROM residency&#xd;&#xa;where deleted&#x3d;0&#xd;&#xa;order by startDate asc&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -608,7 +607,7 @@
            <schema_name/>
            </partitioning>
     <connection>Snapshot</connection>
-    <sql>SELECT&#xa;uuid&#xa;, deleted&#xa;, insertDate&#xa;, voidDate&#xa;, voidReason&#xa;, status&#xa;, statusMessage&#xa;, extId&#xa;, roundNumber&#xa;, MAX&#x28;visitDate&#x29; latestVisit&#xa;, insertBy_uuid&#xa;, voidBy_uuid&#xa;, collectedBy_uuid&#xa;, visitLocation_uuid &#xa;FROM visit GROUP BY visitLocation_uuid&#x3b;&#xa;</sql>
+    <sql>SELECT&#xa;uuid&#xa;, deleted&#xa;, insertDate&#xa;, voidDate&#xa;, voidReason&#xa;, status&#xa;, statusMessage&#xa;, extId&#xa;, roundNumber&#xa;, MAX&#x28;visitDate&#x29; latestVisit&#xa;, insertBy_uuid&#xa;, voidBy_uuid&#xa;, collectedBy_uuid&#xa;, visitLocation_uuid &#xa;FROM visit where deleted&#x3d;0 GROUP BY visitLocation_uuid&#x3b;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
